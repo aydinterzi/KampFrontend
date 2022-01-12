@@ -1,20 +1,29 @@
+<div class="mb-3">
+  <label for="filterText" class="form-label">Ürün ara</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="arama ifadesi giriniz">
+</div>
+
 <table class="table">
   <thead>
     <tr>
-    <td>Id</td>
-    <td>CategoryId</td>
-    <td>Ürün Adı</td>
-    <td>Stok Adedi</td>
-    <td>Fiyat</td>
+    <th>Id</th>
+    <th>CategoryId</th>
+    <th>Ürün Adı</th>
+    <th>Stok Adedi</th>
+    <th>Kdv'li Fiyat</th>
+    <th>Fiyat</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let product of products">
+  <tr *ngFor="let product of products |filterPipe:filterText">
     <td>{{product.productId}}</td>
     <td>{{product.categoryId}}</td>
     <td>{{product.productName}}</td>
     <td>{{product.unitsInStock}}</td>
     <td>{{product.unitPrice}}</td>
+    <td>{{product.unitPrice | vatAdded:10|currency }}</td>
+    <td><button (click)="addToCart(product)" class="btn btn-primary">Sepete ekle</button></td>
   </tr>
 </tbody>
 </table>
